@@ -1,0 +1,22 @@
+<head>
+  <title>creativa77</title>
+</head>
+
+<body>
+  {{> sound_selector}}
+</body>
+
+<template name="sound_selector">
+  <h1>Hey! Choose a sound to be reproduced everywhere</h1>
+  <h3>Make a clap close to your microphone to repeat the propagation</h3>
+  <audio class="js-player" src="{{currentSound}}" autoplay></audio>
+  <ul class="sounds">
+  	{{#each sounds}}
+  	<li>
+  		<label>
+  			<input type="radio" name="sound" value="{{name}}" {{maybeChecked}} /> {{description}}
+  		</label>
+  	</li>
+  	{{/each}}
+  </ul>
+</template>
