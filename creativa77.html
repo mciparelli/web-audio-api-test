@@ -8,7 +8,7 @@
 
 <template name="sound_selector">
   <h1>Hey! Choose a sound to be reproduced everywhere</h1>
-  <h3>Make a clap close to your microphone to repeat the propagation</h3>
+  <h3>Make a clap close to your microphone to repeat the propagation <span class="js-mic-container mic-container"><img class="mic" src="img/mic.png" /><span class="js-mic-bar mic-bar">&nbsp;</span></span></h3>
   <audio class="js-player" src="{{currentSound}}" autoplay></audio>
   <ul class="sounds">
   	{{#each sounds}}

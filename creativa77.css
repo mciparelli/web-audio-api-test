@@ -6,6 +6,20 @@ body {
 	margin: 0 auto;
 	width: 750px;
 }
+.mic-container {
+	display: none;
+}
+.mic {
+	width: 32px;
+	vertical-align: middle;
+}
+.mic-bar {
+	background: red;
+	color: green;
+	height: 20px;
+	display: inline-block;
+	vertical-align: middle;
+}
 .sounds {
 	margin: 0 auto;
 	width: 200px;

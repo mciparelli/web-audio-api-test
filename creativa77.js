@@ -8,19 +8,29 @@ if (Meteor.isClient) {
    */
   var waitForLoudSound = function (callback) {
     var checkForLoud = function (analyser, callback) {
-      var MIN_LOUD_TOLERANCE = 100;
       var array =  new Uint8Array(analyser.frequencyBinCount);
       var arrayLen = array.length;
-      setInterval(function() {
+      (function update() {
+          var MIN_LOUD_TOLERANCE = 100;
+          requestAnimationFrame(update);
           analyser.getByteFrequencyData(array); // copies 0-255 frequency values into array
           var average = [].reduce.call(array, function (a, b) {
             return a + b;
           }, 0) / arrayLen;
           var isLoud = average > MIN_LOUD_TOLERANCE;
+          var $bar = $('.js-mic-bar');
+          $bar.style.width = average + 'px';
           if (isLoud) {
             callback(average);
-          };
-      }, 10);
+            $bar.style.background = 'green';
+            $bar.innerText = 'woohoo!';
+            setTimeout(function () {
+              $bar.innerText = ' ';
+            }, 300);
+          } else {
+            $bar.style.background = 'red';
+          }
+      })();
     };
     if (!navigator.webkitGetUserMedia) {
       return alert('Just Chrome with webcam support for now please!');
@@ -32,6 +42,7 @@ if (Meteor.isClient) {
         var microphone = aCtx.createMediaStreamSource(stream);
         var analyser = aCtx.createAnalyser();
         microphone.connect(analyser);
+        $('.js-mic-container').style.display = 'inline';
         // analyser.connect(aCtx.destination); // to output incoming sound on speakers
         checkForLoud(analyser, callback);
     }, alert);
